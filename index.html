@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Eng. Kareem Younis — Real Estate</title>
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;800&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+  <style>
+    :root{
+      --primary: #0077b6;
+      --accent: #ffb703;
+      --bg: #f7fbfd;
+      --card: #ffffff;
+      --text: #072b31;
+      --muted: #6b7a80;
+      --glass: rgba(255,255,255,0.7);
+    }
+    /* Dark overrides */
+    body.dark{
+      --bg: #071018;
+      --card: linear-gradient(180deg,#071822,#04121a);
+      --text: #dff6fb;
+      --muted: #9fb6bf;
+      --primary: #00a1c8;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:"Poppins",sans-serif;background:var(--bg);color:var(--text);transition:background .3s,color .3s}
+    a{color:inherit;text-decoration:none}
+    img{display:block;max-width:100%}
+
+    /* Header */
+    header{
+      position:fixed;top:0;left:0;right:0;height:72px;background:linear-gradient(90deg,#072027,#08323a);
+      color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 18px;z-index:999;
+      box-shadow:0 6px 18px rgba(2,6,23,0.12)
+    }
+    .logo{font-weight:800;font-size:18px;letter-spacing:.6px}
+    nav ul{display:flex;gap:12px;list-style:none;margin:0;padding:0;align-items:center}
+    nav a{color:rgba(255,255,255,0.95);padding:8px 12px;border-radius:8px;font-weight:600}
+    nav a.active, nav a:hover{background:rgba(255,255,255,0.06)}
+    .header-controls{display:flex;gap:10px;align-items:center}
+
+    /* small circular avatar shown on pages (except home's big avatar) */
+    .avatar-small{width:44px;height:44px;border-radius:50%;overflow:hidden;border:2px solid rgba(255,255,255,0.12);box-shadow:0 6px 18px rgba(2,6,23,0.25)}
+    .theme-btn{background:transparent;border:1px solid rgba(255,255,255,0.12);color:#fff;padding:8px 10px;border-radius:8px;font-weight:700}
+
+    main{padding-top:96px}
+
+    /* HERO */
+    .hero{
+      min-height:78vh;display:flex;align-items:center;justify-content:center;padding:36px 18px;
+      background: linear-gradient(180deg, rgba(7,18,24,0.34), rgba(7,18,24,0.34)), url('https://images.unsplash.com/photo-1560184897-e6d8b1a5b2d8?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      color:#fff;text-align:center;
+    }
+    .hero-card{
+      width:100%;max-width:1100px;display:flex;gap:24px;align-items:center;justify-content:center;flex-wrap:wrap;
+      padding:26px;border-radius:16px;background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));backdrop-filter: blur(6px);
+      box-shadow:0 10px 30px rgba(2,6,23,0.28);
+    }
+    .profile-large{width:180px;height:180px;border-radius:18px;overflow:hidden;border:6px solid rgba(255,255,255,0.12);transform:translateY(-6px);box-shadow:0 16px 36px rgba(2,6,23,0.35)}
+    .profile-large img{width:100%;height:100%;object-fit:cover;filter:grayscale(0%);transition:transform .8s,filter .8s,border-radius .6s}
+    .hero-text{max-width:640px}
+    .hero-text h1{margin:0;font-size:36px;letter-spacing:1px;font-weight:800;opacity:0;transform:translateY(10px);transition:all .8s cubic-bezier(.2,.9,.2,1)}
+    .hero-text p{margin:8px 0 14px;color:rgba(255,255,255,0.92)}
+    .cta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+    .btn{padding:12px 18px;border-radius:12px;border:none;background:var(--primary);color:#fff;font-weight:800;cursor:pointer;box-shadow:0 10px 30px rgba(0,123,200,0.12)}
+    .btn.ghost{background:transparent;border:2px solid rgba(255,255,255,0.12)}
+
+    /* Sections */
+    section{padding:44px 18px;max-width:1200px;margin:0 auto 28px}
+    .card{background:var(--card);border-radius:12px;padding:18px;box-shadow:0 8px 20px rgba(2,6,23,0.06)}
+    h2{margin:0 0 12px;font-size:22px}
+    p.lead{color:var(--muted);margin-bottom:12px}
+
+    /* ABOUT */
+    .about-grid{display:grid;grid-template-columns:1fr 320px;gap:20px;align-items:start}
+    .about-grid img{width:100%;border-radius:10px}
+
+    .socials{display:flex;gap:8px;flex-wrap:wrap}
+    .socials a{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:8px;background:linear-gradient(180deg,#fff,#f1fbff);border:1px solid rgba(3,20,25,0.04);font-weight:700;color:var(--text)}
+
+    /* PROPERTIES */
+    .props-controls{display:flex;gap:12px;align-items:center;justify-content:space-between}
+    .filters{display:flex;gap:8px}
+    .filters button{padding:8px 12px;border-radius:8px;border:1px solid #e6eef1;background:#fff;font-weight:700;cursor:pointer}
+    .filters button.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+    .search input{padding:10px 12px;border-radius:10px;border:1px solid #dfeef2;min-width:220px}
+    .grid{display:grid;grid-template-columns: repeat(auto-fill,minmax(260px,1fr));gap:18px;margin-top:18px}
+    .prop{border-radius:12px;overflow:hidden;background:var(--card);display:flex;flex-direction:column;transition:transform .25s}
+    .prop:hover{transform:translateY(-6px)}
+    .prop img{width:100%;height:160px;object-fit:cover}
+    .meta{padding:12px;display:flex;flex-direction:column;gap:8px}
+    .price{color:var(--primary);font-weight:800}
+    .meta .row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+    .small{padding:8px 10px;border-radius:8px;border:1px solid #e6eef1;background:#fff;cursor:pointer;font-weight:700}
+
+    /* Modal */
+    .modal-backdrop{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(2,6,23,0.6);z-index:1500}
+    .modal{width:92%;max-width:920px;background:var(--card);border-radius:12px;display:flex;overflow:hidden}
+    .modal .left{width:50%}
+    .modal img{width:100%;height:100%;object-fit:cover}
+    .modal .right{padding:18px;width:50%}
+    .close{position:absolute;right:18px;top:18px;border:none;background:#fff;padding:8px;border-radius:8px;cursor:pointer}
+
+    /* Services */
+    .services{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+    .service{padding:16px;border-radius:10px;background:linear-gradient(180deg,#fff,#f7fbff);text-align:left}
+    .service i{font-size:22px;color:var(--primary);margin-left:8px}
+
+    /* Contact */
+    .contact-grid{display:grid;grid-template-columns:1fr 320px;gap:18px}
+    .form input,.form textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #e3eef3;margin-bottom:10px}
+    .info p{margin:8px 0;color:var(--muted)}
+
+    /* Signup */
+    .signup-backdrop{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(2,6,23,0.45);z-index:1600}
+    .signup{width:420px;background:var(--card);padding:18px;border-radius:12px;box-shadow:0 10px 40px rgba(2,6,23,0.12)}
+    .signup input{width:100%;padding:10px;border-radius:8px;border:1px solid:#dfeff3;margin-bottom:10px}
+
+    /* Footer */
+    footer{padding:24px;text-align:center;color:#fff;background:linear-gradient(90deg,#072b33,#0b3942);margin-top:40px}
+
+    /* Animations & Responsive */
+    @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+    .appear{animation:fadeUp .6s ease both}
+    @media (max-width:900px){
+      .about-grid,.contact-grid{grid-template-columns:1fr}
+      .profile-large{width:120px;height:120px;border-radius:14px}
+      .hero-text h1{font-size:24px}
+      .modal .left{display:none}
+      .modal .right{width:100%}
+      nav ul{gap:8px}
+    }
+
+    /* direction aware small tweaks */
+    :root[dir="rtl"] nav a{direction:rtl}
+    :root[dir="ltr"] nav a{direction:ltr}
+  </style>
+</head>
+<body dir="ltr">
+
+  <!-- HEADER -->
+  <header>
+    <div style="display:flex;gap:14px;align-items:center">
+      <div class="logo">Eng. Kareem Younis</div>
+      <nav>
+        <ul>
+          <li><a href="#" data-target="home" class="active">Home</a></li>
+          <li><a href="#" data-target="about">About</a></li>
+          <li><a href="#" data-target="properties">Properties</a></li>
+          <li><a href="#" data-target="services">Services</a></li>
+          <li><a href="#" data-target="contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="header-controls">
+      <!-- language direction toggle -->
+      <button class="theme-btn" id="dirBtn" title="Toggle direction (LTR / RTL)"><i class="fas fa-exchange-alt"></i> LTR</button>
+
+      <!-- theme toggle -->
+      <button class="theme-btn" id="themeBtn" title="Toggle theme"><i class="fas fa-moon"></i></button>
+
+      <!-- signup -->
+      <button class="theme-btn" id="signupBtn" title="Create account"><i class="fas fa-user-plus"></i></button>
+
+      <!-- small avatar (shown on non-home pages visually) -->
+      <div class="avatar-small" id="avatarSmall" title="Profile">
+        <img src="kareem.jpg" alt="Kareem" style="width:100%;height:100%;object-fit:cover">
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HOME -->
+    <section id="home" class="hero" aria-label="home">
+      <div class="hero-card appear" id="heroCard">
+        <div class="profile-large" aria-hidden="true">
+          <img src="kareem.jpg" alt="Kareem portrait" id="heroImage">
+        </div>
+
+        <div class="hero-text">
+          <h1 id="heroName" style="margin-bottom:6px;">Eng. Kareem Younis</h1>
+          <p class="lead">This company is owned by Eng. Kareem Younis &amp; Partners</p>
+          <div class="cta">
+            <button class="btn" data-target="properties">View Properties</button>
+            <button class="btn ghost" data-target="contact">Contact Us</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="card" style="display:none;" aria-label="about">
+      <h2>About</h2>
+      <div class="about-grid">
+        <div>
+          <p class="lead">Hello! I'm <strong>Eng. Kareem Younis</strong>, founder of a modern real estate company blending tech and market expertise to deliver great property outcomes.</p>
+          <p>We focus on residential sales, rentals, commercial listings, investment consulting and property management. Our team values transparency and long-term client relationships.</p>
+
+          <div style="margin-top:14px" class="socials" aria-label="social media">
+            <a href="https://facebook.com/" target="_blank"><i class="fab fa-facebook"></i> Facebook</a>
+            <a href="https://instagram.com/" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+            <a href="https://linkedin.com/" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+            <a href="mailto:kareem@example.com"><i class="fas fa-envelope"></i> Email</a>
+          </div>
+        </div>
+
+        <div>
+          <!-- medium portrait -->
+          <img src="kareem.jpg" alt="Kareem portrait">
+          <div style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end">
+            <button class="small" data-target="services">Our Services</button>
+            <button class="small" data-target="properties">See Properties</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROPERTIES -->
+    <section id="properties" class="card" style="display:none;" aria-label="properties">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+        <h2>Properties</h2>
+        <div style="display:flex;gap:8px;align-items:center">
+          <div class="filters" role="toolbar" aria-label="filters">
+            <button class="active" data-filter="all">All</button>
+            <button data-filter="sale">For Sale</button>
+            <button data-filter="rent">For Rent</button>
+            <button data-filter="commercial">Commercial</button>
+          </div>
+          <div class="search" style="margin-left:12px">
+            <i class="fas fa-search" style="color:var(--muted);margin-left:8px"></i>
+            <input id="propSearch" placeholder="Search by title or description...">
+          </div>
+        </div>
+      </div>
+
+      <div class="grid" id="propsGrid">
+        <!-- property items -->
+        <div class="prop" data-type="sale" data-title="Luxury Villa - New Cairo" data-price="$450,000" data-desc="5BR villa, private pool, garden, premium finishing.">
+          <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=1000&q=60" alt="">
+          <div class="meta">
+            <div class="row"><h3>Luxury Villa - New Cairo</h3><div class="price">$450,000</div></div>
+            <p>5 beds • 4 baths • 500 sqm</p>
+            <div class="row">
+              <div><button class="small" onclick="openDetail(this)">Details</button><button class="small" onclick="contactAgent(this)">Contact</button></div>
+              <div><button class="small" onclick="toggleFav(this)"><i class="far fa-heart"></i></button></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="prop" data-type="sale" data-title="Modern Apartment - Nasr City" data-price="$120,000" data-desc="3BR modern apartment close to services.">
+          <img src="https://images.unsplash.com/photo-1572120360610-d971b9b9f8d4?auto=format&fit=crop&w=1000&q=60" alt="">
+          <div class="meta">
+            <div class="row"><h3>Modern Apartment - Nasr City</h3><div class="price">$120,000</div></div>
+            <p>3 beds • 2 baths • 140 sqm</p>
+            <div class="row"><div><button class="small" onclick="openDetail(this)">Details</button><button class="small" onclick="contactAgent(this)">Contact</button></div><div><button class="small" onclick="toggleFav(this)"><i class="far fa-heart"></i></button></div></div>
+          </div>
+        </div>
+
+        <div class="prop" data-type="rent" data-title="Cozy Studio - Maadi" data-price="$450 / month" data-desc="Furnished studio in Maadi, internet included.">
+          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=60" alt="">
+          <div class="meta">
+            <div class="row"><h3>Cozy Studio - Maadi</h3><div class="price">$450 / month</div></div>
+            <p>Studio • 1 bath • 40 sqm</p>
+            <div class="row"><div><button class="small" onclick="openDetail(this)">Details</button><button class="small" onclick="contactAgent(this)">Contact</button></div><div><button class="small" onclick="toggleFav(this)"><i class="far fa-heart"></i></button></div></div>
+          </div>
+        </div>
+
+        <div class="prop" data-type="commercial" data-title="Office Space - Maadi" data-price="$250,000" data-desc="Office space in Maadi, modern design, great access.">
+          <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1000&q=60" alt="">
+          <div class="meta">
+            <div class="row"><h3>Office Space - Maadi</h3><div class="price">$250,000</div></div>
+            <p>200 sqm • Prime location</p>
+            <div class="row"><div><button class="small" onclick="openDetail(this)">Details</button><button class="small" onclick="contactAgent(this)">Contact</button></div><div><button class="small" onclick="toggleFav(this)"><i class="far fa-heart"></i></button></div></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Modal -->
+    <div id="modal" class="modal-backdrop" aria-hidden="true">
+      <div class="modal card" role="dialog" aria-modal="true">
+        <button class="close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+        <div class="left"><img id="modalImg" src="" alt=""></div>
+        <div class="right">
+          <h3 id="modalTitle"></h3>
+          <p id="modalDesc"></p>
+          <p><strong>Price: </strong><span id="modalPrice"></span></p>
+          <div style="margin-top:12px"><button class="btn" id="modalContactBtn">Contact Agent</button><button class="small" id="modalFavBtn">Save <i class="fas fa-heart"></i></button></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SERVICES -->
+    <section id="services" class="card" style="display:none;">
+      <h2>Services</h2>
+      <div class="services">
+        <div class="service"><h3>Valuation <i class="fas fa-balance-scale"></i></h3><p>Property valuation and market analysis.</p></div>
+        <div class="service"><h3>Buy & Sell <i class="fas fa-handshake"></i></h3><p>Full support through buying & selling process.</p></div>
+        <div class="service"><h3>Rent & Manage <i class="fas fa-key"></i></h3><p>Property management & tenant screening.</p></div>
+        <div class="service"><h3>Investment Advice <i class="fas fa-chart-line"></i></h3><p>Data-driven investment consulting.</p></div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="card" style="display:none;">
+      <h2>Contact</h2>
+      <div class="contact-grid">
+        <form id="contactForm" class="form">
+          <input id="cname" placeholder="Your name" required>
+          <input id="cemail" type="email" placeholder="Your email" required>
+          <input id="cphone" placeholder="Phone (optional)">
+          <textarea id="cmsg" rows="5" placeholder="Your message" required></textarea>
+          <div style="display:flex;gap:8px;align-items:center">
+            <button class="btn" type="submit">Send Message</button>
+            <button type="button" class="small" id="clearContact">Clear</button>
+          </div>
+        </form>
+
+        <div class="info card">
+          <h3>Office</h3>
+          <p>Address: Cairo, Egypt</p>
+          <p>Phone: 0123456789</p>
+          <p>Email: <a href="mailto:kareem@example.com">kareem@example.com</a></p>
+          <div style="margin-top:10px"><a class="icon" href="https://facebook.com/" target="_blank"><i class="fab fa-facebook"></i></a><a class="icon" href="https://instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a><a class="icon" href="https://linkedin.com/" target="_blank"><i class="fab fa-linkedin"></i></a></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>© 2025 Eng. Kareem Younis &amp; Partners — All rights reserved</footer>
+
+  <!-- SIGNUP MODAL -->
+  <div id="signupBackdrop" class="signup-backdrop" aria-hidden="true">
+    <div class="signup card">
+      <h3>Create an account</h3>
+      <p style="color:var(--muted)">Sign up to save favorites and contact agents faster.</p>
+      <input id="suName" placeholder="Full name" required>
+      <input id="suEmail" type="email" placeholder="Email" required>
+      <input id="suPhone" placeholder="Phone">
+      <input id="suPass" type="password" placeholder="Password" required>
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <button class="btn" id="createAccount">Create account</button>
+        <button class="small" id="closeSignup">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+  /* ------------- SPA navigation ------------- */
+  function showSection(id){
+    document.querySelectorAll('main section').forEach(s=>s.style.display='none');
+    const sec = document.getElementById(id);
+    if(!sec) return;
+    sec.style.display = (id === 'home') ? 'flex' : 'block';
+    document.querySelectorAll('nav a').forEach(a=>a.classList.remove('active'));
+    const sel = document.querySelectorAll('nav a[data-target="'+id+'"]');
+    if(sel[0]) sel[0].classList.add('active');
+    // small visual: show avatar-small on non-home, hide on home
+    document.getElementById('avatarSmall').style.display = (id === 'home') ? 'none' : 'block';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  document.querySelectorAll('nav a[data-target], button[data-target]').forEach(el=>{
+    el.addEventListener('click', e=>{
+      e.preventDefault();
+      showSection(el.getAttribute('data-target'));
+    });
+  });
+
+  // initial state
+  showSection('home');
+
+  /* ------------- hero entrance animation ------------- */
+  window.addEventListener('load', ()=>{
+    setTimeout(()=>{
+      const h = document.getElementById('heroName');
+      h.style.opacity = 1;
+      h.style.transform = 'translateY(0)';
+      // small pulse on image
+      const img = document.getElementById('heroImage');
+      img.style.transform = 'scale(1)';
+      img.style.filter = 'none';
+    }, 220);
+  });
+
+  /* ------------- theme toggle ------------- */
+  const themeBtn = document.getElementById('themeBtn');
+  themeBtn.addEventListener('click', ()=>{
+    document.body.classList.toggle('dark');
+    localStorage.setItem('dark', document.body.classList.contains('dark') ? '1' : '0');
+  });
+  if(localStorage.getItem('dark') === '1') document.body.classList.add('dark');
+
+  /* ------------- direction toggle (LTR / RTL) ------------- */
+  const dirBtn = document.getElementById('dirBtn');
+  function setDir(dir){
+    document.documentElement.setAttribute('dir', dir);
+    document.body.setAttribute('dir', dir);
+    dirBtn.textContent = (dir === 'ltr') ? 'LTR' : 'RTL';
+    localStorage.setItem('dir', dir);
+    // adjust alignment for hero text (visual)
+    const heroText = document.querySelector('.hero-text');
+    if(dir === 'rtl') heroText.style.textAlign = 'right'; else heroText.style.textAlign = 'center';
+  }
+  dirBtn.addEventListener('click', ()=>{
+    const current = document.documentElement.getAttribute('dir') === 'rtl' ? 'rtl' : 'ltr';
+    const next = current === 'ltr' ? 'rtl' : 'ltr';
+    setDir(next);
+  });
+  // load preference
+  if(localStorage.getItem('dir')) setDir(localStorage.getItem('dir')); else setDir('ltr');
+
+  /* ------------- filters & search ------------- */
+  const filterBtns = document.querySelectorAll('.filters button');
+  const props = Array.from(document.querySelectorAll('.prop'));
+  filterBtns.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      filterBtns.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.getAttribute('data-filter');
+      props.forEach(p=> p.style.display = (f === 'all' || p.dataset.type === f) ? 'flex' : 'none');
+    });
+  });
+  document.getElementById('propSearch').addEventListener('input', e=>{
+    const q = e.target.value.trim().toLowerCase();
+    props.forEach(p=>{
+      const title = (p.dataset.title || '').toLowerCase();
+      const desc = (p.dataset.desc || '').toLowerCase();
+      p.style.display = (!q || title.includes(q) || desc.includes(q)) ? 'flex' : 'none';
+    });
+  });
+
+  /* ------------- modal detail ------------- */
+  function openDetail(btn){
+    const p = btn.closest('.prop');
+    const img = p.querySelector('img').src;
+    document.getElementById('modalImg').src = img;
+    document.getElementById('modalTitle').textContent = p.dataset.title;
+    document.getElementById('modalDesc').textContent = p.dataset.desc;
+    document.getElementById('modalPrice').textContent = p.dataset.price;
+    document.getElementById('modal').style.display = 'flex';
+    document.getElementById('modal').setAttribute('aria-hidden','false');
+  }
+  function closeModal(){
+    document.getElementById('modal').style.display = 'none';
+    document.getElementById('modal').setAttribute('aria-hidden','true');
+  }
+  document.getElementById('modal').addEventListener('click', e=>{ if(e.target === document.getElementById('modal')) closeModal(); });
+  document.addEventListener('keydown', e=>{ if(e.key === 'Escape') closeModal(); });
+
+  /* ------------- favorites (demo) ------------- */
+  function toggleFav(btn){
+    const icon = btn.querySelector('i');
+    if(icon.classList.contains('fas')){
+      icon.classList.remove('fas'); icon.classList.add('far'); alert('Removed from favorites');
+    } else {
+      icon.classList.remove('far'); icon.classList.add('fas'); alert('Saved to favorites');
+    }
+  }
+
+  /* ------------- contact form (demo) ------------- */
+  document.getElementById('contactForm').addEventListener('submit', e=>{
+    e.preventDefault();
+    alert('Message sent! We will contact you soon.');
+    document.getElementById('contactForm').reset();
+  });
+  document.getElementById('clearContact').addEventListener('click', ()=>document.getElementById('contactForm').reset());
+
+  /* ------------- contact agent prefill ------------- */
+  function contactAgent(btn){
+    const p = btn.closest('.prop');
+    const title = p ? p.dataset.title : '';
+    showSection('contact');
+    document.getElementById('cmsg').value = 'Hi, I am interested in: ' + title + ' - Please contact me with details.';
+  }
+
+  /* ------------- signup modal ------------- */
+  const signupBackdrop = document.getElementById('signupBackdrop');
+  document.getElementById('signupBtn').addEventListener('click', ()=>{ signupBackdrop.style.display = 'flex'; signupBackdrop.setAttribute('aria-hidden','false'); });
+  document.getElementById('closeSignup').addEventListener('click', ()=>{ signupBackdrop.style.display = 'none'; signupBackdrop.setAttribute('aria-hidden','true'); });
+  document.getElementById('createAccount').addEventListener('click', ()=>{
+    const name = document.getElementById('suName').value.trim();
+    const email = document.getElementById('suEmail').value.trim();
+    if(!name || !email){ alert('Please fill name and email'); return; }
+    // demo store (localStorage)
+    const users = JSON.parse(localStorage.getItem('demoUsers') || '[]');
+    users.push({name,email,phone:document.getElementById('suPhone').value || '',created:Date.now()});
+    localStorage.setItem('demoUsers', JSON.stringify(users));
+    alert('Welcome, ' + name + '! (demo account created)');
+    signupBackdrop.style.display = 'none'; signupBackdrop.setAttribute('aria-hidden','true');
+    document.getElementById('suName').value = ''; document.getElementById('suEmail').value = ''; document.getElementById('suPass').value = '';
+  });
+
+  /* ------------- modal contact button (demo) ------------- */
+  document.getElementById('modalContactBtn').addEventListener('click', ()=>{
+    closeModal();
+    alert('Contact request sent to agent (demo).');
+  });
+
+  /* small helper to open modal from HTML onclick */
+  window.openDetail = openDetail;
+  window.closeModal = closeModal;
+  window.toggleFav = toggleFav;
+  window.contactAgent = contactAgent;
+
+  // hide small avatar on home initially
+  document.getElementById('avatarSmall').style.display = 'none';
+
+  // ensure hero name animate immediate (some browsers)
+  setTimeout(()=>{ document.getElementById('heroName').style.opacity = 1; document.getElementById('heroName').style.transform = 'translateY(0)'; }, 300);
+
+</script>
+</body>
+</html>
